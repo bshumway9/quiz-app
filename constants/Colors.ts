@@ -3,24 +3,30 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const tintColorLight = '#2ecc40'; // Green shade for light mode
+const tintColorDark = '#27ae60'; // Green shade for dark mode
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    text: '#14532d', // Dark green for text
+    background: '#e8f5e9', // Light green background
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: '#388e3c', // Medium green for icons
+    tabIconDefault: '#388e3c',
     tabIconSelected: tintColorLight,
+    button: '#43a047', // Vibrant green for buttons
+    header: '#14532d', // Medium green for headers
+    statusBar: '#388e3c', // Green for status bar
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: '#e8f5e9', // Light green for text
+    background: '#14532d', // Dark green background
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: '#27ae60', // Green for icons
+    tabIconDefault: '#27ae60',
     tabIconSelected: tintColorDark,
+    button: '#27ae60', // Vibrant green for buttons
+    header: '#14532d', // Dark green for headers
+    statusBar: '#27ae60', // Green for status bar
   },
 };
