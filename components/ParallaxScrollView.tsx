@@ -17,8 +17,8 @@ import { Colors } from '@/constants/Colors';
 const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
-  headerImage: ReactElement;
-  headerBackgroundColor: { dark: string; light: string };
+  headerImage?: ReactElement;
+  headerBackgroundColor?: { dark: string; light: string };
   headerHeight?: number;
 }>;
 
@@ -53,7 +53,7 @@ export default function ParallaxScrollView({
   return (
     <ThemedView style={styles.container}>
       {/* Status bar spacer */}
-      <ThemedView style={{ height: insets.top, backgroundColor: Colors.light.statusBar }} />
+      {/* <ThemedView style={{ height: insets.top, backgroundColor: Colors.light.statusBar }} /> */}
 
       <Animated.ScrollView
         ref={scrollRef}
@@ -63,7 +63,7 @@ export default function ParallaxScrollView({
         <Animated.View
           style={[
         styles.header,
-        { backgroundColor: headerBackgroundColor[colorScheme], height: headerHeight },
+        // { backgroundColor: (headerBackgroundColor?.[colorScheme] ?? Colors[colorScheme].background), height: headerHeight },
         headerAnimatedStyle,
           ]}>
           {headerImage}

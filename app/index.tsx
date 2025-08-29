@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, Text } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { Colors } from '@/constants/Colors';
 import Quiz, {Question} from '@/components/quiz';
+import React from 'react';
 
 
 const dinosaurQuestions: Question[] = [
@@ -31,23 +32,24 @@ const dinosaurQuestions: Question[] = [
   { text: "All dinosaurs were huge.", answer: false },
   { text: "The extinction of dinosaurs happened about 65 million years ago.", answer: true },
 ];
+const random5 = dinosaurQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
-  let random5 = dinosaurQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+  const [questions, setQuestions] = React.useState<Question[]>(random5);
+
+  function getNewQuestions() {
+    let new5 = dinosaurQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+    setQuestions(new5);
+  }
+
   return (
     <>
     <StatusBar backgroundColor='yellow' />
     <ParallaxScrollView
-      headerBackgroundColor={{ light: Colors.light.header, dark: Colors.dark.header }}
-      headerImage={
-        <></>
-      }
-      headerHeight={insets.top}
       >
-      <CYStack gap={40}>
-        <Quiz questions={random5} />
-      </CYStack>
+        <Quiz questions={questions} getNewQuestions={getNewQuestions} />
     </ParallaxScrollView>
     </>
   );
