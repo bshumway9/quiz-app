@@ -20,7 +20,7 @@ export default function CButton(props: CButtonProps & PropsWithChildren) {
     return (
         <TouchableOpacity onPress={onPress} disabled={disabled} style={style} {...rest}>
             <CXStack style={{
-                    backgroundColor: type === 'primary' ? Colors.light.button : type === 'secondary' ? '#6c757d' : '#ffffff',
+                    backgroundColor: type === 'primary' ? Colors.light.button : type === 'secondary' ? '#6c757d' : Colors.dark.button,
                     padding: 10,
                     borderRadius: 5,
                     alignItems: 'center',
@@ -29,7 +29,7 @@ export default function CButton(props: CButtonProps & PropsWithChildren) {
                     width: 'auto'}}
                 >
                 {props.leftIcon}
-                <Text style={{'color': ['primary', 'secondary'].includes(type??'')? '#ffffff': '#000'}} >{buttonText}</Text>
+                <Text style={{'color': ['primary', 'secondary'].includes(type??'')? '#ffffff': '#ffffff'}} >{buttonText}</Text>
                 {children}
                 {props.rightIcon}
             </CXStack>

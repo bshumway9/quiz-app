@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import CButton from '@/components/buttons/CButton';
 import { CYStack } from '@/components/views/CStack';
@@ -17,20 +17,27 @@ export default function CheatScreen() {
   const question = params.question ?? 'Question';
 
   return (
-    <ParallaxScrollView
-    >
+    <ParallaxScrollView>
         <CYStack style={styles.container} gap={20} align="center" justify="center">
             <Text style={styles.title}>Cheat</Text>
             <Text style={styles.question}>{question}</Text>
 
-            {!revealed ? (
-                <CButton type="primary" buttonText="Show Answer" onPress={() => setRevealed(true)} />
-            ) : (
-                <View style={styles.answerBox}>
-                <Text style={styles.answerLabel}>Answer:</Text>
-                <Text style={styles.answer}>{answerLabel}</Text>
-                </View>
-            )}
+            <CButton
+                type="primary"
+                buttonText="Show Answer"
+                onPress={() => {
+                    // Show alert with answer
+                    // Use React Native's Alert API
+                        Alert.alert(
+                            question,
+                            answerLabel.toLocaleUpperCase(),
+                            [
+                                { text: 'OK', style: 'cancel', onPress: () => {} }
+                            ],
+                            { cancelable: true }
+                        );
+                }}
+            />
         </CYStack>
     </ParallaxScrollView>
   );

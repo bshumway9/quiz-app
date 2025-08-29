@@ -174,8 +174,8 @@ export default function Quiz({
             </CXStack>
             <CXStack justify="center" style={{ marginTop: 16 }}>
                 <CButton
-                    type="tertiary"
-                    buttonText="Cheat"
+                    type="primary"
+                    buttonText="CHEAT"
                     onPress={() =>
                         router.push({
                             pathname: '/cheat',

@@ -37,11 +37,11 @@ const random5 = dinosaurQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
-  const [questions, setQuestions] = React.useState<Question[]>(random5);
+  const [questionBank, setQuestionBank] = React.useState<Question[]>(random5);
 
   function getNewQuestions() {
     let new5 = dinosaurQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
-    setQuestions(new5);
+    setQuestionBank(new5);
   }
 
   return (
@@ -49,7 +49,7 @@ export default function HomeScreen() {
     <StatusBar backgroundColor='yellow' />
     <ParallaxScrollView
       >
-        <Quiz questions={questions} getNewQuestions={getNewQuestions} />
+        <Quiz questions={questionBank} getNewQuestions={getNewQuestions} />
     </ParallaxScrollView>
     </>
   );

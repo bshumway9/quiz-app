@@ -9,7 +9,7 @@ const tintColorDark = '#27ae60'; // Green shade for dark mode
 export const Colors = {
   light: {
     text: '#14532d', // Dark green for text
-    background: '#e8f5e9', // Light green background
+    background: '#c8d5c9', // Light green background
     tint: tintColorLight,
     icon: '#388e3c', // Medium green for icons
     tabIconDefault: '#388e3c',

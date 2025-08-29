@@ -29,7 +29,7 @@ export default function RootLayout() {
             title: 'DinoQuiz',
             headerTitle: () => (
               <CYStack style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.light.header }}>
-                <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>DinoQuiz</Text>
+                <Text style={{ color: Colors.light.tabIconSelected, fontSize: 24, fontWeight: 'bold' }}>DinoQuiz</Text>
               </CYStack>
             ),
             headerStyle: { backgroundColor: Colors.light.header },
@@ -40,7 +40,7 @@ export default function RootLayout() {
           options={{
             headerTitle: () => (
               <CYStack style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.light.header }}>
-                <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>DinoQuiz</Text>
+                <Text style={{ color: Colors.light.tabIconSelected, fontSize: 24, fontWeight: 'bold' }}>DinoQuiz</Text>
               </CYStack>
             ),
             headerStyle: { backgroundColor: Colors.light.header },
