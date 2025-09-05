@@ -1,17 +1,21 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import 'react-native-reanimated';
-
 import { CYStack } from '@/components/views/CStack';
 import { Colors } from '@/constants/Colors';
+import * as expoOrientation from 'expo-screen-orientation'
 
 export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  useEffect(() => {
+    expoOrientation.unlockAsync();
+  }, []);
 
   if (!loaded) {
     // Async font loading only occurs in development.

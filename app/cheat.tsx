@@ -4,11 +4,11 @@ import { CYStack } from '@/components/views/CStack';
 import { Colors } from '@/constants/Colors';
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text } from 'react-native';
 
 export default function CheatScreen() {
+    // Get the answer and question from the URL parameters and display them if the user presses the "Show Answer" button
   const params = useLocalSearchParams<{ answer?: string; question?: string }>();
-  const [revealed, setRevealed] = React.useState(false);
 
   const answerBool = (params.answer ?? '').toString().toLowerCase() === 'true';
   const answerLabel = answerBool ? 'True' : 'False';

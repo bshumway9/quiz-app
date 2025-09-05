@@ -15,6 +15,7 @@ interface CButtonProps extends PressableProps {
 }
 
 export default function CButton(props: CButtonProps & PropsWithChildren) {
+    // Basic button component with three types: primary, secondary, tertiary
     const { style, onPress, disabled, type, buttonText, children, ...rest } = props;
     return (
         <Pressable onPress={onPress} disabled={disabled} style={style} {...rest}>

@@ -35,10 +35,10 @@ export default function HomeScreen() {
 
   return (
     <>
-    <StatusBar />
-    <ParallaxScrollView>
-        <Quiz questions={questionBank} getNewQuestions={getNewQuestions} />
-    </ParallaxScrollView>
+      <StatusBar />
+      <ParallaxScrollView>
+          <Quiz questions={questionBank} getNewQuestions={getNewQuestions} />
+      </ParallaxScrollView>
     </>
   );
 }

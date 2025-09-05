@@ -30,6 +30,7 @@ export default function Quiz({
     const userAnswer = answers[currentIndex];
 
     const onNext = () => {
+        // Go to Next Question. Wrap around to the first question if at the end
         if (currentIndex < questions.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
@@ -38,6 +39,7 @@ export default function Quiz({
     };
 
     const onPrev = () => {
+        // Go to Previous Question. Wrap around to the last question if at the beginning
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
         } else {
@@ -51,6 +53,7 @@ export default function Quiz({
     }
 
     function setAnswer(index: number, answer: boolean) {
+        // Update the answers array with the user's answer
         const newAnswers = [...answers];
         newAnswers[index] = answer;
         setAnswers(newAnswers);
@@ -58,7 +61,7 @@ export default function Quiz({
         const allCorrect =
             newAnswers.every((ans, idx) => ans === questions[idx].answer) &&
             newAnswers.every(ans => ans !== null);
-
+        // Check if all answers are correct to show congratulations alert
         if (allCorrect) {
             Alert.alert(
                 'Congratulations!',
@@ -89,7 +92,7 @@ export default function Quiz({
             );
             return;
         }
-
+        // Show alert for correct answer and move to next question
         if (answer === currentQuestion.answer) {
             Alert.alert(
                 'Correct!',
@@ -112,7 +115,7 @@ export default function Quiz({
     }
 
     return (
-        <CYStack style={{ padding: 16, marginTop: 64 }} gap={20}>
+        <CYStack style={{ padding: 16, marginTop: 32 }} gap={20}>
             <Text
                 style={{
                     color: color,
