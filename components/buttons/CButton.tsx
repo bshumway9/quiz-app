@@ -1,9 +1,9 @@
-import { TouchableOpacity, View, Text, StyleProp, ViewStyle, TouchableOpacityProps, useColorScheme } from "react-native";
-import { PropsWithChildren } from "react";
 import { Colors } from '@/constants/Colors';
+import { PropsWithChildren } from "react";
+import { Pressable, PressableProps, StyleProp, Text, useColorScheme, ViewStyle } from "react-native";
 import CXStack from "../views/CStack";
 
-interface CButtonProps extends TouchableOpacityProps {
+interface CButtonProps extends PressableProps {
     onPress?: () => void;
     disabled?: boolean;
     type?: 'primary' | 'secondary' | 'tertiary';
@@ -16,9 +16,8 @@ interface CButtonProps extends TouchableOpacityProps {
 
 export default function CButton(props: CButtonProps & PropsWithChildren) {
     const { style, onPress, disabled, type, buttonText, children, ...rest } = props;
-    const colorScheme = useColorScheme();
     return (
-        <TouchableOpacity onPress={onPress} disabled={disabled} style={style} {...rest}>
+        <Pressable onPress={onPress} disabled={disabled} style={style} {...rest}>
             <CXStack style={{
                     backgroundColor: type === 'primary' ? Colors.light.button : type === 'secondary' ? '#6c757d' : Colors.dark.button,
                     padding: 10,
@@ -33,6 +32,6 @@ export default function CButton(props: CButtonProps & PropsWithChildren) {
                 {children}
                 {props.rightIcon}
             </CXStack>
-        </TouchableOpacity>
+        </Pressable>
     );
 }

@@ -1,18 +1,14 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
   useAnimatedStyle,
   useScrollViewOffset,
 } from 'react-native-reanimated';
-
-import { ThemedView } from '@/components/ThemedView';
 import { useBottomTabOverflow } from '@/components/ui/TabBarBackground';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '@/constants/Colors';
+
 
 const HEADER_HEIGHT = 250;
 
@@ -28,8 +24,6 @@ export default function ParallaxScrollView({
   headerBackgroundColor,
   headerHeight = HEADER_HEIGHT,
 }: Props) {
-  const insets = useSafeAreaInsets();
-  const colorScheme = useColorScheme() ?? 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
   const bottom = useBottomTabOverflow();
@@ -51,10 +45,7 @@ export default function ParallaxScrollView({
   });
 
   return (
-    <ThemedView style={styles.container}>
-      {/* Status bar spacer */}
-      {/* <ThemedView style={{ height: insets.top, backgroundColor: Colors.light.statusBar }} /> */}
-
+    <View style={{...styles.container, backgroundColor: Colors.light.background}}>
       <Animated.ScrollView
         ref={scrollRef}
         scrollEventThrottle={16}
@@ -63,14 +54,13 @@ export default function ParallaxScrollView({
         <Animated.View
           style={[
         styles.header,
-        // { backgroundColor: (headerBackgroundColor?.[colorScheme] ?? Colors[colorScheme].background), height: headerHeight },
         headerAnimatedStyle,
           ]}>
           {headerImage}
         </Animated.View>
-        <ThemedView style={styles.content}>{children}</ThemedView>
+        <View style={{...styles.container, backgroundColor: Colors.light.background}}>{children}</View>
       </Animated.ScrollView>
-    </ThemedView>
+    </View>
   );
 }
 

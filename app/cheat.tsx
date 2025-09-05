@@ -1,14 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
 import CButton from '@/components/buttons/CButton';
-import { CYStack } from '@/components/views/CStack';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { CYStack } from '@/components/views/CStack';
 import { Colors } from '@/constants/Colors';
+import { useLocalSearchParams } from 'expo-router';
+import React from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 export default function CheatScreen() {
-    const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ answer?: string; question?: string }>();
   const [revealed, setRevealed] = React.useState(false);
 
@@ -19,8 +17,10 @@ export default function CheatScreen() {
   return (
     <ParallaxScrollView>
         <CYStack style={styles.container} gap={20} align="center" justify="center">
+            <CYStack style={{backgroundColor: Colors.light.header, padding: 32, borderRadius: 8, marginBottom: 16}} gap={20} align="center" justify='center' >
             <Text style={styles.title}>Cheat</Text>
             <Text style={styles.question}>{question}</Text>
+            </CYStack>
 
             <CButton
                 type="primary"
@@ -45,8 +45,8 @@ export default function CheatScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24 },
-  title: { fontSize: 26, fontWeight: 'bold' },
-  question: { fontSize: 18, textAlign: 'center' },
+  title: { fontSize: 26, fontWeight: 'bold', color: 'white' },
+  question: { fontSize: 18, textAlign: 'center', color: 'white' },
   answerBox: { alignItems: 'center' },
   answerLabel: { fontSize: 16, opacity: 0.7, marginBottom: 4 },
   answer: { fontSize: 22, fontWeight: 'bold' },

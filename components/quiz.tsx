@@ -1,12 +1,10 @@
-import React from 'react';
-import { Text, View, Alert } from 'react-native';
-import { CXStack, CYStack } from './views/CStack';
-import CButton from './buttons/CButton';
-import { AntDesign } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
+import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import * as Updates from 'expo-updates';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import React from 'react';
+import { Alert, Text } from 'react-native';
+import CButton from './buttons/CButton';
+import { CXStack, CYStack } from './views/CStack';
 
 export type Question = {
     text: string;
@@ -15,7 +13,7 @@ export type Question = {
 
 type QuizProps = {
     questions: Question[];
-    getNewQuestions?: () => void;
+    getNewQuestions: () => void;
 };
 
 export default function Quiz({
@@ -24,16 +22,12 @@ export default function Quiz({
 }: QuizProps) {
     const router = useRouter();
     const [currentIndex, setCurrentIndex] = React.useState(0);
-    const [currentQuestion, setCurrentQuestion] = React.useState<Question>(questions[0]);
-    const [userAnswer, setUserAnswer] = React.useState<boolean | null>(null);
     const [answers, setAnswers] = React.useState<(boolean | null)[]>(
         Array(questions.length).fill(null)
     );
 
-    React.useEffect(() => {
-        setCurrentQuestion(questions[currentIndex]);
-        setUserAnswer(answers[currentIndex]);
-    }, [currentIndex, answers, questions]);
+    const currentQuestion = questions[currentIndex];
+    const userAnswer = answers[currentIndex];
 
     const onNext = () => {
         if (currentIndex < questions.length - 1) {
@@ -51,21 +45,52 @@ export default function Quiz({
         }
     };
 
-    let color = undefined;
+    let color = 'white';
     if (userAnswer !== null) {
-        color = userAnswer === currentQuestion.answer ? 'green' : 'red';
+        color = userAnswer === currentQuestion.answer ? Colors.light.tabIconSelected : 'red';
     }
 
     function setAnswer(index: number, answer: boolean) {
         const newAnswers = [...answers];
         newAnswers[index] = answer;
         setAnswers(newAnswers);
-        setUserAnswer(answer);
+
         const allCorrect =
             newAnswers.every((ans, idx) => ans === questions[idx].answer) &&
             newAnswers.every(ans => ans !== null);
 
-        if (answer === currentQuestion.answer && !allCorrect) {
+        if (allCorrect) {
+            Alert.alert(
+                'Congratulations!',
+                'You answered all questions correctly!',
+                [
+                    {
+                        text: 'Retry',
+                        onPress: () => {
+                            (async () => {
+                                try {
+                                    if (getNewQuestions) {
+                                        await Promise.resolve(getNewQuestions());
+                                        setCurrentIndex(0);
+                                        setAnswers(Array(questions.length).fill(null));
+                                    } else {
+                                        setCurrentIndex(0);
+                                        setAnswers(Array(questions.length).fill(null));
+                                    }
+                                } catch (e) {
+                                    setCurrentIndex(0);
+                                    setAnswers(Array(questions.length).fill(null));
+                                }
+                            })();
+                        },
+                    },
+                ],
+                { cancelable: false }
+            );
+            return;
+        }
+
+        if (answer === currentQuestion.answer) {
             Alert.alert(
                 'Correct!',
                 'You chose the right answer.',
@@ -86,51 +111,8 @@ export default function Quiz({
         }
     }
 
-    React.useEffect(() => {
-        if (
-            answers.every((ans, idx) => ans === questions[idx].answer) &&
-            answers.every(ans => ans !== null)
-        ) {
-            Alert.alert(
-                'Congratulations!',
-                'You answered all questions correctly!',
-                [
-                    {
-                        text: 'Retry',
-                        onPress: () => {
-                            // Reload the app using Expo Updates for React Native
-                            // and fallback to resetting state if Updates is unavailable
-                            (async () => {
-                                try {
-                                    getNewQuestions?.();
-                                    if (getNewQuestions) {
-                                        getNewQuestions();
-                                        setCurrentIndex(0);
-                                        setAnswers(Array(questions.length).fill(null));
-                                    }
-                                    else if (Updates && Updates.reloadAsync) {
-                                        await Updates.reloadAsync();
-                                    } else if (Updates && Updates.reloadAsync) {
-                                        await Updates.reloadAsync();
-                                    } else {
-                                        setCurrentIndex(0);
-                                        setAnswers(Array(questions.length).fill(null));
-                                    }
-                                } catch (e) {
-                                    setCurrentIndex(0);
-                                    setAnswers(Array(questions.length).fill(null));
-                                }
-                            })();
-                        },
-                    }
-                ],
-                { cancelable: false }
-            );
-        }
-    }, [answers, questions]);
-
     return (
-        <CYStack style={{ padding: 16 }}>
+        <CYStack style={{ padding: 16, marginTop: 64 }} gap={20}>
             <Text
                 style={{
                     color: color,
@@ -138,6 +120,9 @@ export default function Quiz({
                     marginBottom: 16,
                     fontSize: 18,
                     textAlign: 'center',
+                    backgroundColor: Colors.light.header,
+                    padding: 32,
+                    borderRadius: 8,
                 }}
             >
                 {currentQuestion.text}

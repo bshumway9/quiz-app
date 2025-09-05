@@ -1,18 +1,8 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, Text } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import CButton from '@/components/buttons/CButton';
-import CXStack, { CYStack } from '@/components/views/CStack';
-import { AntDesign } from '@expo/vector-icons';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Quiz, { Question } from '@/components/quiz';
 import { StatusBar } from 'expo-status-bar';
-import { Colors } from '@/constants/Colors';
-import Quiz, {Question} from '@/components/quiz';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 
 
 const dinosaurQuestions: Question[] = [
@@ -36,7 +26,6 @@ const random5 = dinosaurQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
 
 
 export default function HomeScreen() {
-  const insets = useSafeAreaInsets();
   const [questionBank, setQuestionBank] = React.useState<Question[]>(random5);
 
   function getNewQuestions() {
@@ -46,9 +35,8 @@ export default function HomeScreen() {
 
   return (
     <>
-    <StatusBar backgroundColor='yellow' />
-    <ParallaxScrollView
-      >
+    <StatusBar />
+    <ParallaxScrollView>
         <Quiz questions={questionBank} getNewQuestions={getNewQuestions} />
     </ParallaxScrollView>
     </>
